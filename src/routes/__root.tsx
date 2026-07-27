@@ -80,13 +80,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SecurePay AI — Credit Card Fraud Detection" },
-      { name: "description", content: "AI-powered credit card fraud detection with real-time risk analysis and machine learning." },
+      { title: "SecurePay AI — AI-Powered Credit Card Fraud Detection" },
+      { name: "description", content: "Detect fraudulent card transactions in real time with machine learning and risk scoring." },
       { name: "author", content: "SecurePay AI" },
-      { property: "og:title", content: "SecurePay AI — Credit Card Fraud Detection" },
-      { property: "og:description", content: "Detect fraudulent transactions instantly using ML and real-time risk analysis." },
+      { property: "og:title", content: "SecurePay AI — AI-Powered Credit Card Fraud Detection" },
+      { property: "og:description", content: "Detect fraudulent card transactions in real time with machine learning and risk scoring." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "SecurePay AI — AI-Powered Credit Card Fraud Detection" },
+      { name: "twitter:description", content: "Detect fraudulent card transactions in real time with machine learning and risk scoring." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c83faf5c-c95b-49d3-bdf9-cf48280c80d1/id-preview-00913a99--4ba6055b-7835-412e-80e8-59d31bbc0cc5.lovable.app-1785184097760.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c83faf5c-c95b-49d3-bdf9-cf48280c80d1/id-preview-00913a99--4ba6055b-7835-412e-80e8-59d31bbc0cc5.lovable.app-1785184097760.png" },
     ],
     links: [
       {
