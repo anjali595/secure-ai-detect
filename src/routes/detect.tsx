@@ -23,11 +23,10 @@ export const Route = createFileRoute("/detect")({
   component: DetectPage,
 });
 
-const V_KEYS = Array.from({ length: 28 }, (_, i) => `V${i + 1}`);
-const FIELDS = ["Time", "Amount", ...V_KEYS] as const;
+import { FEATURE_FIELDS, V_KEYS, featureLabel } from "@/lib/features";
 
 function emptyForm(): Record<string, string> {
-  return Object.fromEntries(FIELDS.map((k) => [k, ""]));
+  return Object.fromEntries(FEATURE_FIELDS.map((f) => [f.key, ""]));
 }
 
 function DetectPage() {
