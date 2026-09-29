@@ -23,11 +23,10 @@ export const Route = createFileRoute("/detect")({
   component: DetectPage,
 });
 
-const V_KEYS = Array.from({ length: 28 }, (_, i) => `V${i + 1}`);
-const FIELDS = ["Time", "Amount", ...V_KEYS] as const;
+import { FEATURE_FIELDS, V_KEYS, featureLabel } from "@/lib/features";
 
 function emptyForm(): Record<string, string> {
-  return Object.fromEntries(FIELDS.map((k) => [k, ""]));
+  return Object.fromEntries(FEATURE_FIELDS.map((f) => [f.key, ""]));
 }
 
 function DetectPage() {
@@ -50,15 +49,16 @@ function DetectPage() {
   async function onPredict(e: React.FormEvent) {
     e.preventDefault();
     const payload: Record<string, number> = {};
-    for (const k of FIELDS) {
+    for (const f of FEATURE_FIELDS) {
+      const k = f.key;
       const raw = values[k];
       if (raw === "" || raw === undefined) {
-        toast.error(`Missing value: ${k}`);
+        toast.error(`Missing value: ${f.label} (${k})`);
         return;
       }
       const n = Number(raw);
       if (Number.isNaN(n)) {
-        toast.error(`Invalid number in ${k}`);
+        toast.error(`Invalid number in ${f.label} (${k})`);
         return;
       }
       payload[k] = n;
@@ -111,18 +111,27 @@ function DetectPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {FIELDS.map((k) => (
-              <div key={k} className="min-w-0">
-                <Label htmlFor={k} className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                  {k}
-                </Label>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {FEATURE_FIELDS.map((f) => (
+              <div key={f.key} className="min-w-0">
+                <div className="flex items-baseline justify-between gap-1">
+                  <Label
+                    htmlFor={f.key}
+                    title={f.label}
+                    className="min-w-0 truncate text-[11px] font-medium text-muted-foreground"
+                  >
+                    {f.label}
+                  </Label>
+                  <span className="shrink-0 font-mono text-[10px] text-muted-foreground/60">
+                    {f.key}
+                  </span>
+                </div>
                 <Input
-                  id={k}
+                  id={f.key}
                   type="number"
                   step="any"
-                  value={values[k]}
-                  onChange={(e) => setValues((v) => ({ ...v, [k]: e.target.value }))}
+                  value={values[f.key]}
+                  onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))}
                   placeholder="0.00"
                   className="mt-1 border-white/10 bg-white/5 text-white tabular-nums placeholder:text-muted-foreground/50"
                 />
